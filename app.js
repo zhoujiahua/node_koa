@@ -27,10 +27,8 @@ app.use(async (ctx, next) => {
 })
 
 // Router module
-const main = require('./routers/main.js');
-const admin = require('./routers/admin.js');
-router.use('/main', main.routes());
-router.use('/admin', admin.routes());
+router.use('/main', require('./routers/main'));
+router.use('/admin', require('./routers/admin'));
 
 // Start router
 app.use(router.routes()).use(router.allowedMethods());

@@ -1,5 +1,4 @@
-const Router = require('koa-router');
-const router = new Router();
+const router = require('koa-router')();
 
 router.get('/', async (ctx) => {
     await ctx.render('index');
@@ -19,4 +18,4 @@ router.post('/login', async (ctx) => {
     ctx.body = ctx.request.body
 })
 
-module.exports = router;
+module.exports = router.routes();
