@@ -26,26 +26,13 @@ app.use(async (ctx, next) => {
     }
 })
 
-router.get('/', async (ctx) => {
-    await ctx.render('index');
-})
-
-router.get('/list', async (ctx) => {
-    let r = ctx.query;
-    ctx.body = r
-})
-
-router.get('/detail/:id/:key', async (ctx) => {
-    let r = ctx.params;
-    ctx.body = r
-})
-
-router.post('/login', async (ctx) => {
-    ctx.body = ctx.request.body
-})
+// Router module
+const main = require('./routers/main.js');
+const admin = require('./routers/admin.js');
+router.use('/main', main.routes());
+router.use('/admin', admin.routes());
 
 // Start router
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(3000)
