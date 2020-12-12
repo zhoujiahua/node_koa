@@ -1,11 +1,18 @@
 const koa = require('koa');
+const path = require('path');
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
+const koaArt = require('koa-art-template');
 const static = require('koa-static');
 const app = new koa();
 
 app.use(bodyParser());
-app.use(static(__dirname + '/public'));
+app.use(static(path.join(__dirname, 'public')));
+koaArt(app, {
+    root: path.join(__dirname, 'views'),
+    extname: '.html',
+    debug: process.env.NODE_ENV !== 'production'
+});
 
 app.use(async (ctx, next) => {
     ctx.state = {
@@ -20,7 +27,7 @@ app.use(async (ctx, next) => {
 })
 
 router.get('/', async (ctx) => {
-    ctx.body = 'hi koa'
+    await ctx.render('index');
 })
 
 router.get('/list', async (ctx) => {
