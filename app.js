@@ -33,4 +33,6 @@ router.use('/admin', require('./routers/admin'));
 // Start router
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(3000)
+// Start server
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log('Start server:http://localhost:' + port));
